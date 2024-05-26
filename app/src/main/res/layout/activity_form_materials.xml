@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:src="@drawable/choosematerial"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"></ImageView>
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="363dp"
+        android:layout_height="349dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:layout_width="108dp"
+                android:layout_height="120dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="80dp"
+                android:onClick="onClickMaterial"
+                android:scaleType="fitXY"
+                android:src="@drawable/blue"></ImageButton>
+
+
+            <ImageButton
+                android:layout_width="108dp"
+                android:layout_height="120dp"
+                android:layout_marginRight="50dp"
+                android:onClick="onClickMaterial"
+                android:scaleType="fitXY"
+                android:src="@drawable/green">
+
+            </ImageButton>
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="70dp"
+                android:text="Paper"
+                android:textSize="20dp"
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="50dp"
+                android:text="Glass"
+                android:textSize="20dp"
+                android:textStyle="bold"></TextView>
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:layout_width="108dp"
+                android:layout_height="120dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="80dp"
+                android:onClick="onClickMaterial"
+                android:scaleType="fitXY"
+                android:src="@drawable/red"></ImageButton>
+
+            <ImageButton
+                android:layout_width="108dp"
+                android:layout_height="120dp"
+                android:layout_marginRight="50dp"
+                android:onClick="onClickMaterial"
+                android:scaleType="fitXY"
+                android:src="@drawable/yellow"></ImageButton>
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="70dp"
+                android:text="Metal"
+                android:textSize="20dp"
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="50dp"
+                android:text="Plastic"
+                android:textSize="20dp"
+                android:textStyle="bold"></TextView>
+        </TableRow>
+
+    </TableLayout>
+
+    <ImageView
+        android:id="@+id/back_arrow"
+        android:layout_width="71dp"
+        android:layout_height="65dp"
+        android:onClick="onClickBackArrow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.055"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back_to_user" />
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/linearL"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="200dp"-->
+<!--        android:layout_margin="20dp"-->
+<!--        android:background="@drawable/popupbg"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        tools:layout_editor_absoluteX="20dp">-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="20dp"-->
+<!--            android:text="lalaljvnjdcdjbjdsbvkdsbvhsfvbjksdbvjfbvkjsdbvjfbvjkbfjsjkvsjvnfsklala"-->
+<!--            android:textSize="30sp"></TextView>-->
+<!--    </LinearLayout>-->
+    <!--    <RelativeLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="20dp"-->
+    <!--        android:layout_marginEnd="20dp"-->
+    <!--        android:layout_marginTop="10dp">-->
+
+    <!--    </RelativeLayout>-->
+
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/linearLayout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:background="@drawable/new_back"-->
+    <!--        android:orientation="vertical"-->
+    <!--        android:visibility="invisible"-->
+    <!--        android:padding="10dp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/tableLayout"></LinearLayout>-->
+</androidx.constraintlayout.widget.ConstraintLayout>
