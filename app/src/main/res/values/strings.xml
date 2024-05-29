@@ -1,6 +1,16 @@
 <resources>
     <string name="app_name">RecycleProject</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_register">Register</string>
+
+    <string name="Paper">Paper</string>
+    <string name="Glass">Glass</string>
+    <string name="Metal">Metal</string>
+    <string name="Plastic">Plastic</string>
+
+    <string name="Submit">Submit</string>
+    <string name="GoBack">Back</string>
+    <string name="choosematerial">Choose Material</string>
+
 </resources>

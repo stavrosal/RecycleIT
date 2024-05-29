@@ -1,171 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraintLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context=".FormMaterialsActivity">
 
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:src="@drawable/choosematerial"
-        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"></ImageView>
+        android:id="@+id/chooseMaterialImg"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="20dp"
+        android:contentDescription="@string/choosematerial"
+        android:src="@drawable/choosematerial" />
+
 
     <TableLayout
         android:id="@+id/tableLayout"
-        android:layout_width="363dp"
-        android:layout_height="349dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@id/chooseMaterialImg"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true">
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ImageButton
-                android:layout_width="108dp"
+                android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="80dp"
-                android:onClick="onClickMaterial"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="90dp"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="@string/Paper"
+                android:onClick="onClickMaterialBlue"
                 android:scaleType="fitXY"
-                android:src="@drawable/blue"></ImageButton>
-
+                android:src="@drawable/blue" />
 
             <ImageButton
-                android:layout_width="108dp"
+                android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:layout_marginRight="50dp"
-                android:onClick="onClickMaterial"
+                android:layout_marginStart="-60dp"
+                android:layout_marginEnd="30dp"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="@string/Glass"
+                android:onClick="onClickMaterialGreen"
                 android:scaleType="fitXY"
-                android:src="@drawable/green">
+                android:src="@drawable/green" />
 
-            </ImageButton>
         </TableRow>
 
-        <TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <TextView
-                android:layout_width="75dp"
+                android:id="@+id/blueText"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="70dp"
-                android:text="Paper"
-                android:textSize="20dp"
-                android:textStyle="bold"></TextView>
+                android:layout_marginStart="-50dp"
+                android:text="@string/Paper"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/greenText"
                 android:layout_width="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="50dp"
-                android:text="Glass"
-                android:textSize="20dp"
-                android:textStyle="bold"></TextView>
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-100dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/Glass"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </TableRow>
-
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ImageButton
-                android:layout_width="108dp"
+                android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="80dp"
-                android:onClick="onClickMaterial"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="90dp"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="@string/Metal"
+                android:onClick="onClickMaterialRed"
                 android:scaleType="fitXY"
-                android:src="@drawable/red"></ImageButton>
+                android:src="@drawable/red" />
 
             <ImageButton
-                android:layout_width="108dp"
+                android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:layout_marginRight="50dp"
-                android:onClick="onClickMaterial"
+                android:layout_marginStart="-60dp"
+                android:layout_marginEnd="30dp"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="@string/Plastic"
+                android:onClick="onClickMaterialYellow"
                 android:scaleType="fitXY"
-                android:src="@drawable/yellow"></ImageButton>
+                android:src="@drawable/yellow" />
 
         </TableRow>
 
         <TableRow>
 
             <TextView
+                android:id="@+id/redText"
                 android:layout_width="wrap_content"
-                android:layout_marginLeft="70dp"
-                android:text="Metal"
-                android:textSize="20dp"
-                android:textStyle="bold"></TextView>
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-50dp"
+                android:text="@string/Metal"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/yellowText"
                 android:layout_width="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="50dp"
-                android:text="Plastic"
-                android:textSize="20dp"
-                android:textStyle="bold"></TextView>
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-100dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/Plastic"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </TableRow>
 
     </TableLayout>
 
     <ImageView
+        android:contentDescription="@string/GoBack"
         android:id="@+id/back_arrow"
-        android:layout_width="71dp"
-        android:layout_height="65dp"
+        android:layout_width="61dp"
+        android:layout_height="55dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
         android:onClick="onClickBackArrow"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.055"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/back_to_user" />
+        android:src="@drawable/back_to_user" />
 
-<!--    <LinearLayout-->
-<!--        android:id="@+id/linearL"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="200dp"-->
-<!--        android:layout_margin="20dp"-->
-<!--        android:background="@drawable/popupbg"-->
-<!--        android:orientation="vertical"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        tools:layout_editor_absoluteX="20dp">-->
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="32dp"
+        android:onClick="onClickSubmit"
+        android:backgroundTint="#056709"
+        android:text="@string/Submit" />
 
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="20dp"-->
-<!--            android:text="lalaljvnjdcdjbjdsbvkdsbvhsfvbjksdbvjfbvkjsdbvjfbvjkbfjsjkvsjvnfsklala"-->
-<!--            android:textSize="30sp"></TextView>-->
-<!--    </LinearLayout>-->
-    <!--    <RelativeLayout-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginStart="20dp"-->
-    <!--        android:layout_marginEnd="20dp"-->
-    <!--        android:layout_marginTop="10dp">-->
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:backgroundTint="#00FFFFFF"
+        android:foregroundGravity="top|right"
+        android:onClick="onClickUser"
+        app:srcCompat="@drawable/account_button48" />
 
-    <!--    </RelativeLayout>-->
-
-    <!--    <LinearLayout-->
-    <!--        android:id="@+id/linearLayout"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:background="@drawable/new_back"-->
-    <!--        android:orientation="vertical"-->
-    <!--        android:visibility="invisible"-->
-    <!--        android:padding="10dp"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/tableLayout"></LinearLayout>-->
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

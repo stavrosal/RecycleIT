@@ -6,6 +6,8 @@
     <color name="primary">#220227</color>
     <color name="seconadary">#2FB8CA</color>
 
+    <color name="app_green">#056709</color>
+    <color name="light_yellow_frame">#EAE2A1</color>
     <color name="night_mode">#42085A</color>
     <color name="notification">#3C9EEC</color>
     <color name="private_account">#9C8C00</color>

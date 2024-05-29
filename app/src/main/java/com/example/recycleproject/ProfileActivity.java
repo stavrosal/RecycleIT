@@ -13,7 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 public class ProfileActivity extends AppCompatActivity {
 
     TextView username;
-    TextView mainName;
+//    TextView mainName;
+
+    TextView password;
+
     TextView profType;
 
     ProgressBar pb;
@@ -28,16 +31,22 @@ public class ProfileActivity extends AppCompatActivity {
         String uname = intent.getExtras().getString("username");
         String pass = intent.getExtras().getString("password");
         String isAdmin = intent.getExtras().getString("isAdmin"); //1 for admin, 0 for simple user
-
+        points = intent.getExtras().getInt("points");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        mainName = findViewById(R.id.usernameMain);
-        mainName.setText(uname);
+//        mainName = findViewById(R.id.usernameMain);
+//        mainName.setText(uname);
 
         username = findViewById(R.id.usernameMain);
         username.setText(uname);
+
+        password = findViewById(R.id.passwordMain);
+        password.setText(getAsteriskString(pass.length()));
+
+//        points = findViewById(R.id.pointsMain);
+//        points.setText(totalPoints);
 
         profType= findViewById(R.id.profType);
         if (Integer.parseInt(isAdmin) == 1) profType.setText("Administrator");
@@ -50,8 +59,16 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    public void onClickRecycle(View v){
-        Intent intent = new Intent(ProfileActivity.this, FormMaterialsActivity.class);
-       startActivity(intent);
+    public static String getAsteriskString(int length) {
+        StringBuilder asterisks = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            asterisks.append('*');
+        }
+        return asterisks.toString();
     }
+
+    public void onClickBackArrow(View v){
+        finish();
+    }
+
 }
