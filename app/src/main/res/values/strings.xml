@@ -9,6 +9,9 @@
     <string name="Metal">Metal</string>
     <string name="Plastic">Plastic</string>
 
+    <string name="Account">Account</string>
+    <string name="please_submit_first">Please submit first.</string>
+
     <string name="Submit">Submit</string>
     <string name="GoBack">Back</string>
     <string name="choosematerial">Choose Material</string>

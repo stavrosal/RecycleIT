@@ -24,15 +24,23 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.content.ContextCompat;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class FormMaterialsActivity extends AppCompatActivity {
 
     TextView blue, green, red, yellow;
-    String bValue = "0", gValue = "0", rValue = "0", yValue = "0";
+    int bValue = 0, gValue = 0, rValue = 0, yValue = 0;
+    int paperCount = 0, glassCount = 0, metalCount = 0, plasticCount = 0; //show totan items recycled this time
+
     String uname, pass, isAdmin;
 
+    Button nextBtn, submitBtn;
+    RelativeLayout.LayoutParams params;
     int points;
-    protected void onCreate(Bundle savedInstanceState) {
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_materials);
 
@@ -45,30 +53,108 @@ public class FormMaterialsActivity extends AppCompatActivity {
         uname = intent.getExtras().getString("username");
         pass = intent.getExtras().getString("password");
         isAdmin = intent.getExtras().getString("isAdmin"); //1 for admin, 0 for simple user
+        points = intent.getExtras().getInt("points");
+
+
+
+//        nextBtn = findViewById(R.id.nextButton);
+//        nextBtn.setVisibility(View.INVISIBLE);
+//
+//        submitBtn = findViewById(R.id.submitButton);
+//
+//        params = (RelativeLayout.LayoutParams) submitBtn.getLayoutParams();
+//
+//        params.addRule(RelativeLayout.CENTER_IN_PARENT, 1);
+//
+//        submitBtn.setLayoutParams(params);
 
     }
 
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//
+////        flagResults = false;
+//
+//        nextBtn.setVisibility(View.INVISIBLE);
+//        submitBtn.setVisibility(View.VISIBLE);
+//
+//        params = (RelativeLayout.LayoutParams) submitBtn.getLayoutParams();
+//
+//        params.addRule(RelativeLayout.CENTER_IN_PARENT, 1);
+//
+//        submitBtn.setLayoutParams(params);
+//    }
 
-    public void onClickSubmit(View v){
+    // Go to the next activity and pass the total values
+    public void onClickNext() {
         Intent intent = new Intent(FormMaterialsActivity.this, RecycledItemsActivity.class);
-        intent.putExtra("blue", bValue);
-        intent.putExtra("green", gValue);
-        intent.putExtra("red", rValue);
-        intent.putExtra("yellow", yValue);
+        intent.putExtra("paper", paperCount);
+        intent.putExtra("glass", glassCount);
+        intent.putExtra("metal", metalCount);
+        intent.putExtra("plastic", plasticCount);
         intent.putExtra("username", uname);
         intent.putExtra("password", pass);
         intent.putExtra("isAdmin", isAdmin);
-        intent.putExtra("points",points);
+        intent.putExtra("points", points);
         startActivity(intent);
     }
 
+//    public int ceilToNearestHundredUp(int number) {
+//        return (((number + 99) / 100) * 100);
+//    }
+
+    // Submit the current values and reset them
+    public void onClickSubmit(View v) {
+        // Send points to the server
+        int newAddedPoints = bValue + gValue + rValue + yValue;
+        if ((points + newAddedPoints)>100){
+            newAddedPoints = - 100 + newAddedPoints;
+            points =  (bValue + gValue + rValue + yValue) + points - 100;
+//            points =  (newAddedPoints) + points - ceilToNearestHundredUp(newAddedPoints);
+
+        }
+        else{
+            points += bValue + gValue + rValue + yValue;
+        }
+        String urlPoints = "http://192.168.2.6/RecycleIT/savePoints.php?" + "username=" + uname + "&points=" + newAddedPoints;
+        try {
+            OKHttpHandler okHttpHandler = new OKHttpHandler();
+            okHttpHandler.savePoints(urlPoints, uname, points);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+//        nextBtn.setVisibility(View.VISIBLE);
+//
+//        params.addRule(RelativeLayout.CENTER_IN_PARENT, 0); // 0 means false
+//
+//        submitBtn.setLayoutParams(params);
+
+        // Reset the values
+        bValue = 0;
+        gValue = 0;
+        rValue = 0;
+        yValue = 0;
+        blue.setText("Paper");
+        green.setText("Glass");
+        red.setText("Metal");
+        yellow.setText("Plastic");
+        onClickNext();
+//        if ((bValue + gValue + rValue + yValue) == 0) {
+//            Toast.makeText(getApplicationContext(),
+//                    "You have to recycle first!", Toast.LENGTH_SHORT).show();
+//        }
+//        onClickNext();
 
 
-    public void onClickBackArrow(View v){
-        finish();
     }
 
-    public void onClickUser(View v){
+//    public void onClickBackArrow(View v) {
+//        finish();
+//    }
+
+    public void onClickUser(View v) {
         Intent intent = new Intent(FormMaterialsActivity.this, ProfileActivity.class);
         intent.putExtra("username", uname);
         intent.putExtra("password", pass);
@@ -77,22 +163,23 @@ public class FormMaterialsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-    //Future change: set currValue on each material to 0, but inside keep current value
     public void onClickMaterialBlue(View v) {
-        openAlert("Paper");
-    }
-    public void onClickMaterialGreen(View v) {
-        openAlert("Glass");
-    }
-    public void onClickMaterialRed(View v) {
-        openAlert("Metal");
-    }
-    public void onClickMaterialYellow(View v) {
-        openAlert("Plastic");
+        openAlert("Paper", bValue);
     }
 
-    public void openAlert(String material){
+    public void onClickMaterialGreen(View v) {
+        openAlert("Glass", gValue);
+    }
+
+    public void onClickMaterialRed(View v) {
+        openAlert("Metal", rValue);
+    }
+
+    public void onClickMaterialYellow(View v) {
+        openAlert("Plastic", yValue);
+    }
+
+    public void openAlert(String material, int currentValue) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -121,7 +208,6 @@ public class FormMaterialsActivity extends AppCompatActivity {
                     decrementButton.setGravity(Gravity.CENTER);
                     decrementButton.setTypeface(null, Typeface.NORMAL);
 
-
                     // Change "-" button's shape
                     decrementButton.setBackground(ContextCompat.getDrawable(FormMaterialsActivity.this, R.drawable.circular_button));
                     decrementButton.setTextColor(Color.WHITE);
@@ -131,8 +217,7 @@ public class FormMaterialsActivity extends AppCompatActivity {
                     final TextView numberDisplay = new TextView(FormMaterialsActivity.this);
                     numberDisplay.setTextSize(24);
                     numberDisplay.setGravity(Gravity.CENTER);
-                    numberDisplay.setText("0");
-//                    numberDisplay.setText(currValue);
+                    numberDisplay.setText(String.valueOf(currentValue));
 
                     LinearLayout.LayoutParams textLayoutParams = new LinearLayout.LayoutParams(
                             ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -177,27 +262,32 @@ public class FormMaterialsActivity extends AppCompatActivity {
                             .setView(layout)
                             .setCancelable(false)
                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @SuppressLint("SetTextI18n")
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    // Get the number from the TextView
-                                    String userInput = numberDisplay.getText().toString();
-
+                                    int userInput = Integer.parseInt(numberDisplay.getText().toString());
                                     if (material.equals("Paper")) {
-                                        blue.setText("Paper: " + userInput);
                                         bValue = userInput;
+                                        paperCount = userInput;
+                                        blue.setText("Paper: " + bValue);
                                     } else if (material.equals("Glass")) {
-                                        green.setText("Glass: " + userInput);
                                         gValue = userInput;
+                                        glassCount = userInput;
+                                        green.setText("Glass: " + gValue);
                                     } else if (material.equals("Metal")) {
-                                        red.setText("Metal: " + userInput);
                                         rValue = userInput;
+                                        metalCount = userInput;
+                                        red.setText("Metal: " + rValue);
                                     } else {
-                                        yellow.setText("Plastic: " + userInput);
                                         yValue = userInput;
+                                        plasticCount = userInput;
+                                        yellow.setText("Plastic: " + yValue);
                                     }
-
                                 }
+
+
                             })
+
                             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -205,13 +295,7 @@ public class FormMaterialsActivity extends AppCompatActivity {
                                 }
                             }).show();
                 }
-                //Calculate points and send them to progressbar
-                points = Integer.parseInt((String) bValue) + Integer.parseInt((String) gValue)
-                        + Integer.parseInt((String) rValue) + Integer.parseInt((String) yValue);
             }
         });
-
     }
-
-
 }

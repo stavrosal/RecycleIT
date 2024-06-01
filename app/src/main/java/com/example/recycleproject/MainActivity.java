@@ -10,15 +10,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    String afro_API = "192.168.2.15";
+//    String afro_API = "192.168.2.6";
 
     EditText usernameInput;
     EditText passwordInput;
     Button loginBtn;
     Button registerBtn;
+
+    int points;
 
 
 
@@ -31,16 +35,12 @@ public class MainActivity extends AppCompatActivity {
         loginBtn = findViewById(R.id.loginBtn);
         registerBtn = findViewById(R.id.registerBtn);
 
-
     }
 
     public void onClickLogin(View view){
         String username = usernameInput.getText().toString();
         String password = passwordInput.getText().toString();
-        int points=0;
-
         int response = -1;
-        int responsePoints = -1;
 
         Toast myMessage_ = null;
         if (username.isEmpty() || password.isEmpty()){
@@ -49,20 +49,14 @@ public class MainActivity extends AppCompatActivity {
             myMessage_.show();
         }
         else{
-            String url = "http://192.168.2.15/RecycleIT/logUser.php?"
+            String url = "http://192.168.2.6/RecycleIT/logUser.php?"
                     +"username=" + username +
                     "&password=" + password;
 
-//            String urlPoints = "http://192.168.2.15/RecycleIT/savePoints.php?"+"username=" + username;
             try{
                 OKHttpHandler okHttpHandler = new OKHttpHandler();
                 response = okHttpHandler.logUser(url);
-//                responsePoints = okHttpHandler.savePoints(urlPoints, username,points);
             } catch(Exception e) {e.printStackTrace();}
-
-//            if (responsePoints == -1) {
-//                Toast.makeText(getApplicationContext(), "Failed to save points", Toast.LENGTH_SHORT).show();
-//            }
             if (response == -1){
                 Toast.makeText(getApplicationContext(),
                         "User not found. Check your credentials", Toast.LENGTH_SHORT).show();
@@ -74,7 +68,9 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("username", username);
                 intent.putExtra("password", password);
                 intent.putExtra("isAdmin", String.valueOf(response));
+                intent.putExtra("points", getAllPointsPerUser(username));
                 startActivity(intent);
+                finish();
             }
 
 
@@ -82,6 +78,22 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    private int getAllPointsPerUser(String uname) {
+        int responsePoints = -1;
+        String urlPoints = "http://192.168.2.6/RecycleIT/getPointsPerUser.php?" + "username=" + uname;
+        try {
+            OKHttpHandler okHttpHandler = new OKHttpHandler();
+            String jsonResponse = okHttpHandler.getPointsPerUser(urlPoints, uname);
+            JSONObject jsonObject = new JSONObject(jsonResponse);
+            points = jsonObject.getInt("points");
+        } catch (Exception e) {
+            points=0;
+            e.printStackTrace();
+        }
+        return points;
+    }
+
 
     public void onClickReg(View view){
         try {

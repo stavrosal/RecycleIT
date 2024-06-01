@@ -12,12 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    TextView username;
+    TextView username, password, profType, progressBarText;
 //    TextView mainName;
-
-    TextView password;
-
-    TextView profType;
 
     ProgressBar pb;
 
@@ -45,17 +41,19 @@ public class ProfileActivity extends AppCompatActivity {
         password = findViewById(R.id.passwordMain);
         password.setText(getAsteriskString(pass.length()));
 
-//        points = findViewById(R.id.pointsMain);
-//        points.setText(totalPoints);
-
         profType= findViewById(R.id.profType);
         if (Integer.parseInt(isAdmin) == 1) profType.setText("Administrator");
         else profType.setText("User");
 
+        progressBarText = findViewById(R.id.progressBarText);
+
+        //getPoints from db
+
+        progressBarText.setText("Check out your progress (" + points + "%):");
+
         pb = findViewById(R.id.progBar);
         pb.setMax(maxLevel);
         pb.setProgress(points);
-
 
     }
 

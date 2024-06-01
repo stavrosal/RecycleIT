@@ -22,33 +22,31 @@ public class RecycledItemsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycled_items);
 
-        //Values: Paper, Glass, Metal, Plastic
+        //Values of: Paper, Glass, Metal, Plastic
         //Sent from FormMateriaslActivity
 
         Intent intent = getIntent();
 
-        String blue = intent.getExtras().getString("blue");
-        String green = intent.getExtras().getString("green");
-        String red = intent.getExtras().getString("red");
-        String yellow = intent.getExtras().getString("yellow");
+        int blue = intent.getExtras().getInt("paper");
+        int green = intent.getExtras().getInt("glass");
+        int red = intent.getExtras().getInt("metal");
+        int yellow = intent.getExtras().getInt("plastic");
 
         uname = intent.getExtras().getString("username");
         pass = intent.getExtras().getString("password");
         isAdmin = intent.getExtras().getString("isAdmin"); //1 for admin, 0 for simple user
         points = intent.getExtras().getInt("points");
+
         //Print items that have been recycled
         paperTxt = findViewById(R.id.paperNum);
         glassTxt = findViewById(R.id.glassNum);
         metalTxt = findViewById(R.id.metalNum);
         plasticTxt = findViewById(R.id.plasticNum);
 
-        paperTxt.setText(blue);
-        glassTxt.setText(green);
-        metalTxt.setText(red);
-        plasticTxt.setText(yellow);
-//
-        points = Integer.parseInt((String) paperTxt.getText()) + Integer.parseInt((String) glassTxt.getText())
-                + Integer.parseInt((String) metalTxt.getText()) + Integer.parseInt((String) plasticTxt.getText());
+        paperTxt.setText(String.valueOf(blue));
+        glassTxt.setText(String.valueOf(green));
+        metalTxt.setText(String.valueOf(red));
+        plasticTxt.setText(String.valueOf(yellow));
     }
 
 
@@ -56,13 +54,21 @@ public class RecycledItemsActivity extends AppCompatActivity {
         finish();
     }
 
-    public void onClickBackToUser(View v){
-        Intent intent = new Intent(RecycledItemsActivity.this, ProfileActivity.class);
-        intent.putExtra("username", uname);
-        intent.putExtra("password", pass);
-        intent.putExtra("isAdmin", isAdmin);
-        intent.putExtra("points", points);
-        startActivity(intent);
-        finish();
-    }
+//    public void onClickProgress(View v){
+//        // Send points to the server
+//        String urlPoints = "http://192.168.2.6/RecycleIT/savePoints.php?" + "username=" + uname + "&points=" + points;
+//        try {
+//            OKHttpHandler okHttpHandler = new OKHttpHandler();
+//            okHttpHandler.savePoints(urlPoints, uname, points);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        Intent intent = new Intent(RecycledItemsActivity.this, ProfileActivity.class);
+//        intent.putExtra("username", uname);
+//        intent.putExtra("password", pass);
+//        intent.putExtra("isAdmin", isAdmin);
+//        intent.putExtra("points", points);
+//        startActivity(intent);
+//    }
 }

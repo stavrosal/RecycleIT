@@ -51,7 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
             if (userType.getText().equals("Administrator")) isAdmin = 1;
             else isAdmin = 0;
 
-            String url = "http://192.168.2.15/RecycleIT/regUser.php?"
+            String url = "http://192.168.2.6/RecycleIT/regUser.php?"
                     +"username=" + username +
                     "&password=" + password +
                     "&isAdmin=" + isAdmin;

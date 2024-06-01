@@ -74,14 +74,8 @@ public class OKHttpHandler {
 
     public int savePoints(String url, String username, int points) throws Exception {
         OkHttpClient client = new OkHttpClient().newBuilder().build();
-        MediaType mediaType = MediaType.parse("application/json");
-        JSONObject json = new JSONObject();
-        json.put("username", username);
-        json.put("points", points);
-        RequestBody body = RequestBody.create(mediaType, json.toString());
         Request request = new Request.Builder()
                 .url(url)
-                .method("POST", body)
                 .build();
         Response response = client.newCall(request).execute();
         String data = response.body().string();
@@ -89,4 +83,27 @@ public class OKHttpHandler {
         int res = jsonResponse.getInt("status"); // -1 if failed, 1 if success
         return res;
     }
+
+    public String getPoints(String url) throws Exception {
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        Response response = client.newCall(request).execute();
+        String data = response.body().string();
+        return data;
+
+    }
+
+    public String getPointsPerUser(String url, String uname) throws Exception {
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        Response response = client.newCall(request).execute();
+        String data = response.body().string();
+        return data;
+
+    }
+
 }
