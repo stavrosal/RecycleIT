@@ -71,7 +71,7 @@ public class RegisterActivity extends AppCompatActivity {
             myMessage_.show();
 
                 try {
-                    Intent intent = new Intent(RegisterActivity.this, ProfileActivity.class);
+                    Intent intent = new Intent(RegisterActivity.this, FormMaterialsActivity.class);
                     intent.putExtra("username", username);
                     intent.putExtra("password", password);
                     intent.putExtra("isAdmin", String.valueOf(isAdmin));

@@ -243,7 +243,9 @@ public class FormMaterialsActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             int currentValue = Integer.parseInt(numberDisplay.getText().toString());
-                            numberDisplay.setText(String.valueOf(currentValue + 1));
+                            if (currentValue < 100) {
+                                numberDisplay.setText(String.valueOf(currentValue + 1));
+                            }
                         }
                     });
 
