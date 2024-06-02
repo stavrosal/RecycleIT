@@ -46,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
         if (username.isEmpty() || password.isEmpty() || userType == null){
             myMessage_ = Toast.makeText(getApplicationContext(),
                     "All fields are required", Toast.LENGTH_LONG);
-            myMessage_.show();
+            myMessage_.show(); //notify user that all fields are mandatory
         }else{
             if (userType.getText().equals("Administrator")) isAdmin = 1;
             else isAdmin = 0;
@@ -54,7 +54,8 @@ public class RegisterActivity extends AppCompatActivity {
             String url = "http://192.168.2.6/RecycleIT/regUser.php?"
                     +"username=" + username +
                     "&password=" + password +
-                    "&isAdmin=" + isAdmin;
+                    "&isAdmin=" + isAdmin
+                    +"&points=0"; //add points variable too
             try {
                 OKHttpHandler okHttpHandler = new OKHttpHandler();
                 response = okHttpHandler.regUser(url);
@@ -63,7 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
             if (response == -1){
                 myMessage_ = Toast.makeText(getApplicationContext(),
                         "User already exists", Toast.LENGTH_LONG);
-                myMessage_.show();
+                myMessage_.show(); //notify user that this account already exists
             }else{
             myMessage_ = Toast.makeText(getApplicationContext(),
                     "Registration as " + userType.getText().toString() + " successful", Toast.LENGTH_LONG);
@@ -74,7 +75,7 @@ public class RegisterActivity extends AppCompatActivity {
                     intent.putExtra("username", username);
                     intent.putExtra("password", password);
                     intent.putExtra("isAdmin", String.valueOf(isAdmin));
-                    startActivity(intent);
+                    startActivity(intent); //register is complete, pass the credentials to the next intent and move on
                 }catch (Exception e){e.printStackTrace();}
             }
 
