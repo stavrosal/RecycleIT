@@ -187,4 +187,30 @@ public class OKHttpHandler {
         return usernames;
     }
 
+    public String getBestStatistics(String url, String users[], String points[]) throws IOException, JSONException {
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        MediaType mediaType = MediaType.parse("text/plain");
+        RequestBody body = RequestBody.create(mediaType, "");
+        Request request = new Request.Builder()
+                .url(url)
+                .method("POST", body)
+                .build();
+        Response response = client.newCall(request).execute();
+        String data = response.body().string();
+
+        try {
+            JSONArray arr = new JSONArray(data);
+            JSONObject first = (JSONObject) arr.get(0); //fetch top 3 users
+
+            for (int i=0; i<3; i++){
+                JSONObject temp = (JSONObject) arr.get(i); //cast from Object to JSONObject
+                users[i] = temp.get("username").toString();
+                points[i] = temp.get("points").toString();
+            }
+
+        }catch(JSONException e) {e.printStackTrace(); return "error";}
+
+        return "OK";
+    }
 }
