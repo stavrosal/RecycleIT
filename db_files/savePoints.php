@@ -13,16 +13,20 @@
     $conn = mysqli_connect($host,$uname,$pass) or die("cannot connect");
      mysqli_select_db($conn, $dbname);
 
-$sql = "UPDATE users SET points = (points + " . $points . ") WHERE username = '" . $user . "'";
+    $sql = "UPDATE users SET points = points + ? WHERE username = ?";
+    $stmt = $conn->prepare($sql);
 
-
-$stmt = $conn->prepare($sql);
-
-if ($stmt->execute()) {
-    echo json_encode(["status" => 1]);
-} else {
-    echo json_encode(["status" => -1]);
-}
+    if ($stmt) {
+        $stmt->bind_param("is", $points, $user); // Bind parameters
+        if ($stmt->execute()) {
+            echo json_encode(["status" => 1]);
+        } else {
+            echo json_encode(["status" => -1]);
+        }
+        $stmt->close();
+    } else {
+        echo json_encode(["status" => -1]);
+    }
 
 $stmt->close();
 $conn->close();
