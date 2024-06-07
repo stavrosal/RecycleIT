@@ -36,6 +36,8 @@
             android:exported="true"/>
         <activity android:name=".ApproveActivity"
             android:exported="true"/>
+        <activity android:name=".BestStatisticsActivity"
+            android:exported="true"/>
         <activity
             android:name=".SplashScreen"
             android:exported="true">
