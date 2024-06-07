@@ -18,12 +18,9 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
-    static String myIp= "10.140.7.157";
-
-    //THIS IS THE LATEST VERSION
+    static String myIp= "127.0.0.1"; //SERVER IP HERE
 
 
-    //IP changes in MainActivity(3), ApproveActivity(6), RegisterActivity(2), FormMaterialsActivity(3)
 
     EditText usernameInput;
     EditText passwordInput;
