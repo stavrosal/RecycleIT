@@ -1,5 +1,4 @@
 package com.example.recycleproject;
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,14 +12,12 @@ import androidx.appcompat.app.AppCompatActivity;
 public class ProfileActivity extends AppCompatActivity {
 
     TextView username, password, profType, progressBarText;
-//    TextView mainName;
 
     ProgressBar pb;
 
     int points;
     int maxLevel = 100;
 
-    @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
 
         Intent intent = getIntent();
@@ -31,9 +28,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
-//        mainName = findViewById(R.id.usernameMain);
-//        mainName.setText(uname);
 
         username = findViewById(R.id.usernameMain);
         username.setText(uname);
@@ -47,9 +41,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         progressBarText = findViewById(R.id.progressBarText);
 
-        //getPoints from db
-
-        progressBarText.setText("Check out your progress (" + points + "%):");
+        progressBarText.setText("Check out your progress (" + points + "%):"); //show progress
 
         pb = findViewById(R.id.progBar);
         pb.setMax(maxLevel);
@@ -57,6 +49,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+    //Method to show asterisks in password's length
     public static String getAsteriskString(int length) {
         StringBuilder asterisks = new StringBuilder();
         for (int i = 0; i < length; i++) {
@@ -65,7 +58,7 @@ public class ProfileActivity extends AppCompatActivity {
         return asterisks.toString();
     }
 
-    public void onClickBackArrow(View v){
+    public void onClickBackToForm(View v){
         finish();
     }
 

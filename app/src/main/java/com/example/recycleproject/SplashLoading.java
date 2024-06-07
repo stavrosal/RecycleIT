@@ -31,13 +31,16 @@ public class SplashLoading extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(SplashLoading.this, FormMaterialsActivity.class);
-                i.putExtra("username", uname);
-                i.putExtra("password", pass);
-                i.putExtra("isAdmin", isAdmin);
-                i.putExtra("points", points);
-                startActivity(i);
-                finish();
+                if(isAdmin.equals("0"))
+                {
+                    Intent i = new Intent(SplashLoading.this, FormMaterialsActivity.class);
+                    i.putExtra("username", uname);
+                    i.putExtra("password", pass);
+                    i.putExtra("isAdmin", isAdmin);
+                    i.putExtra("points", points);
+                    startActivity(i);
+                    finish();
+                }
             }
         }, 2000);
 

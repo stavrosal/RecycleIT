@@ -1,5 +1,8 @@
 package com.example.recycleproject;
 
+
+import static com.example.recycleproject.MainActivity.myIp;
+
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,36 +10,26 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.content.ContextCompat;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 public class FormMaterialsActivity extends AppCompatActivity {
 
     TextView blue, green, red, yellow;
     int bValue = 0, gValue = 0, rValue = 0, yValue = 0;
-    int paperCount = 0, glassCount = 0, metalCount = 0, plasticCount = 0; //show totan items recycled this time
+    int paperCount = 0, glassCount = 0, metalCount = 0, plasticCount = 0; //show total items recycled this time
 
     String uname, pass, isAdmin;
 
-    Button nextBtn, submitBtn;
-    RelativeLayout.LayoutParams params;
     int points;
 
     @Override
@@ -55,38 +48,9 @@ public class FormMaterialsActivity extends AppCompatActivity {
         isAdmin = intent.getExtras().getString("isAdmin"); //1 for admin, 0 for simple user
         points = intent.getExtras().getInt("points");
 
-
-
-//        nextBtn = findViewById(R.id.nextButton);
-//        nextBtn.setVisibility(View.INVISIBLE);
-//
-//        submitBtn = findViewById(R.id.submitButton);
-//
-//        params = (RelativeLayout.LayoutParams) submitBtn.getLayoutParams();
-//
-//        params.addRule(RelativeLayout.CENTER_IN_PARENT, 1);
-//
-//        submitBtn.setLayoutParams(params);
-
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//
-////        flagResults = false;
-//
-//        nextBtn.setVisibility(View.INVISIBLE);
-//        submitBtn.setVisibility(View.VISIBLE);
-//
-//        params = (RelativeLayout.LayoutParams) submitBtn.getLayoutParams();
-//
-//        params.addRule(RelativeLayout.CENTER_IN_PARENT, 1);
-//
-//        submitBtn.setLayoutParams(params);
-//    }
-
-    // Go to the next activity and pass the total values
+    //When submit is clicked move to activity RecycledItemsActivity and pass the values of each material
     public void onClickNext() {
         Intent intent = new Intent(FormMaterialsActivity.this, RecycledItemsActivity.class);
         intent.putExtra("paper", paperCount);
@@ -100,38 +64,27 @@ public class FormMaterialsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-//    public int ceilToNearestHundredUp(int number) {
-//        return (((number + 99) / 100) * 100);
-//    }
-
+//Here currentPoints of each material are saved to db, in order to be approved by an admin
+public void saveRecycledPoints() {
+    int response = -1;
+    String url = "http://" + myIp + "/RecycleIT/saveCurrentRecycled.php?"
+            + "username=" + uname
+            + "&current_paper=" + paperCount
+            + "&current_glass=" + glassCount
+            + "&current_metal=" + metalCount
+            + "&current_plastic=" + plasticCount;
+    try{
+    OKHttpHandler okHttpHandler = new OKHttpHandler();
+    response = okHttpHandler.saveCurrentRecycledPoints(url);
+    if (response == -1){
+        Toast.makeText(getApplicationContext(),
+                "Error", Toast.LENGTH_SHORT).show();
+    }
+    }catch (Exception e){e.printStackTrace();}
+}
     // Submit the current values and reset them
-    public void onClickSubmit(View v) {
-        // Send points to the server
-        int newAddedPoints = bValue + gValue + rValue + yValue;
-        if ((points + newAddedPoints)>100){
-            newAddedPoints = - 100 + newAddedPoints;
-            points =  (bValue + gValue + rValue + yValue) + points - 100;
-//            points =  (newAddedPoints) + points - ceilToNearestHundredUp(newAddedPoints);
-
-        }
-        else{
-            points += bValue + gValue + rValue + yValue;
-        }
-        String urlPoints = "http://192.168.2.6/RecycleIT/savePoints.php?" + "username=" + uname + "&points=" + newAddedPoints;
-        try {
-            OKHttpHandler okHttpHandler = new OKHttpHandler();
-            okHttpHandler.savePoints(urlPoints, uname, points);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-//        nextBtn.setVisibility(View.VISIBLE);
-//
-//        params.addRule(RelativeLayout.CENTER_IN_PARENT, 0); // 0 means false
-//
-//        submitBtn.setLayoutParams(params);
-
-        // Reset the values
+    public void onClickPreview(View v){
+        saveRecycledPoints();
         bValue = 0;
         gValue = 0;
         rValue = 0;
@@ -141,18 +94,16 @@ public class FormMaterialsActivity extends AppCompatActivity {
         red.setText("Metal");
         yellow.setText("Plastic");
         onClickNext();
-//        if ((bValue + gValue + rValue + yValue) == 0) {
-//            Toast.makeText(getApplicationContext(),
-//                    "You have to recycle first!", Toast.LENGTH_SHORT).show();
-//        }
-//        onClickNext();
-
 
     }
 
-//    public void onClickBackArrow(View v) {
-//        finish();
-//    }
+    public void onClickLogoutButton(View v) {
+            Intent intent = new Intent(FormMaterialsActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("logout", true);
+            startActivity(intent);
+            finish();
+    }
 
     public void onClickUser(View v) {
         Intent intent = new Intent(FormMaterialsActivity.this, ProfileActivity.class);
@@ -162,20 +113,20 @@ public class FormMaterialsActivity extends AppCompatActivity {
         intent.putExtra("points", points);
         startActivity(intent);
     }
-
-    public void onClickMaterialBlue(View v) {
+//DIALOG ALERT
+    public void onClickMaterialBlue(View v) { //Paper
         openAlert("Paper", bValue);
     }
 
-    public void onClickMaterialGreen(View v) {
+    public void onClickMaterialGreen(View v) { //Glass
         openAlert("Glass", gValue);
     }
 
-    public void onClickMaterialRed(View v) {
+    public void onClickMaterialRed(View v) { //Metal
         openAlert("Metal", rValue);
     }
 
-    public void onClickMaterialYellow(View v) {
+    public void onClickMaterialYellow(View v) { //Plastic
         openAlert("Plastic", yValue);
     }
 
@@ -189,7 +140,7 @@ public class FormMaterialsActivity extends AppCompatActivity {
                     layout.setOrientation(LinearLayout.VERTICAL);
                     layout.setPadding(50, 50, 50, 50);
 
-                    // Create the buttons for incrementing and decrementing
+                    // Create the buttons for incrementing
                     Button incrementButton = new Button(FormMaterialsActivity.this);
                     incrementButton.setText("+");
                     incrementButton.setTextSize(30);
@@ -202,6 +153,7 @@ public class FormMaterialsActivity extends AppCompatActivity {
                     LinearLayout.LayoutParams buttonLayoutParams = new LinearLayout.LayoutParams(100, 100);
                     incrementButton.setLayoutParams(buttonLayoutParams);
 
+                    // Create the buttons for decrementing
                     Button decrementButton = new Button(FormMaterialsActivity.this);
                     decrementButton.setText("-");
                     decrementButton.setTextSize(30);
@@ -263,6 +215,7 @@ public class FormMaterialsActivity extends AppCompatActivity {
                             .setTitle("How many items did you recycle?")
                             .setView(layout)
                             .setCancelable(false)
+                            //if ok is clicked
                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                 @SuppressLint("SetTextI18n")
                                 @Override
@@ -289,7 +242,7 @@ public class FormMaterialsActivity extends AppCompatActivity {
 
 
                             })
-
+                            //if cancel is clicked
                             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {

@@ -1,5 +1,7 @@
 package com.example.recycleproject;
 
+import static com.example.recycleproject.MainActivity.myIp;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -51,11 +53,15 @@ public class RegisterActivity extends AppCompatActivity {
             if (userType.getText().equals("Administrator")) isAdmin = 1;
             else isAdmin = 0;
 
-            String url = "http://192.168.2.6/RecycleIT/regUser.php?"
+            String url = "http://" + myIp + "/RecycleIT/regUser.php?"
                     +"username=" + username +
                     "&password=" + password +
                     "&isAdmin=" + isAdmin
-                    +"&points=0"; //add points variable too
+                    +"&points=0" //add points variable too
+                    +"&paper=0" //add recycledItems variable too
+                    +"&glass=0&metal=0&plastic=0"+
+                    "&current_paper=0&current_glass=0&current_metal=0&current_plastic=0";
+
             try {
                 OKHttpHandler okHttpHandler = new OKHttpHandler();
                 response = okHttpHandler.regUser(url);
@@ -70,18 +76,37 @@ public class RegisterActivity extends AppCompatActivity {
                     "Registration as " + userType.getText().toString() + " successful", Toast.LENGTH_LONG);
             myMessage_.show();
 
-                try {
-                    Intent intent = new Intent(RegisterActivity.this, FormMaterialsActivity.class);
-                    intent.putExtra("username", username);
-                    intent.putExtra("password", password);
-                    intent.putExtra("isAdmin", String.valueOf(isAdmin));
-                    startActivity(intent); //register is complete, pass the credentials to the next intent and move on
-                }catch (Exception e){e.printStackTrace();}
+                if(isAdmin == 1)
+                {
+                    try {
+                        Intent intent = new Intent(RegisterActivity.this, AdminActivity.class);
+                        intent.putExtra("username", username);
+                        intent.putExtra("password", password);
+                        intent.putExtra("isAdmin", String.valueOf(isAdmin));
+                        startActivity(intent); //register is complete, pass the credentials to the next intent and move on
+                    }catch (Exception e){e.printStackTrace();}
+                }
+                else {
+                    try {
+                        Intent intent = new Intent(RegisterActivity.this, FormMaterialsActivity.class);
+                        intent.putExtra("username", username);
+                        intent.putExtra("password", password);
+                        intent.putExtra("isAdmin", String.valueOf(isAdmin));
+                        startActivity(intent); //register is complete, pass the credentials to the next intent and move on
+                    }catch (Exception e){e.printStackTrace();}
+                }
+
+
             }
 
         }
 
 
     }
+
+    public void onClickBack(View v){
+        finish();
+    }
+
 
 }

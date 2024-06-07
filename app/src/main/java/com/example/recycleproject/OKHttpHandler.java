@@ -2,11 +2,15 @@ package com.example.recycleproject;
 
 import android.os.StrictMode;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import okhttp3.*;
 
@@ -72,7 +76,7 @@ public class OKHttpHandler {
 
     }
 
-    public int savePoints(String url, String username, int points) throws Exception {
+    public int savePoints(String url) throws Exception {
         OkHttpClient client = new OkHttpClient().newBuilder().build();
         Request request = new Request.Builder()
                 .url(url)
@@ -84,6 +88,19 @@ public class OKHttpHandler {
         return res;
     }
 
+    public int saveAllRecycled(String url) throws Exception {
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        Response response = client.newCall(request).execute();
+        String data = response.body().string();
+        JSONObject jsonResponse = new JSONObject(data);
+        int res = jsonResponse.getInt("status"); // -1 if failed, 1 if success
+        return res;
+    }
+
+    //addGetAllRecycled
     public String getPoints(String url) throws Exception {
         OkHttpClient client = new OkHttpClient().newBuilder().build();
         Request request = new Request.Builder()
@@ -95,7 +112,44 @@ public class OKHttpHandler {
 
     }
 
-    public String getPointsPerUser(String url, String uname) throws Exception {
+//set current points to zero after awards are given
+    public int resetCurrentRecycledPoints(String url, String username) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+
+        // Build URL with query parameters
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
+        urlBuilder.addQueryParameter("username", username);
+        urlBuilder.addQueryParameter("current_paper", "0");
+        urlBuilder.addQueryParameter("current_glass", "0");
+        urlBuilder.addQueryParameter("current_metal", "0");
+        urlBuilder.addQueryParameter("current_plastic", "0");
+        String finalUrl = urlBuilder.build().toString();
+
+        // Create and execute request
+        Request request = new Request.Builder().url(finalUrl).build();
+        Response response = client.newCall(request).execute();
+        return response.isSuccessful() ? 1 : -1;
+    }
+
+
+    public int saveCurrentRecycledPoints(String url) throws Exception {
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        MediaType mediaType = MediaType.parse("text/plain");
+        RequestBody body = RequestBody.create(mediaType, "");
+        Request request = new Request.Builder()
+                .url(url)
+                .method("POST", body)
+                .build();
+        Response response = client.newCall(request).execute();
+        String data = response.body().string();
+        data = data.replace("\n", "").replace("\r", ""); //strip new-line
+        int res = Integer.parseInt(data);
+
+        return res;
+    }
+
+    public String getPointsPerUser(String url) throws Exception {
         OkHttpClient client = new OkHttpClient().newBuilder().build();
         Request request = new Request.Builder()
                 .url(url)
@@ -104,6 +158,33 @@ public class OKHttpHandler {
         String data = response.body().string();
         return data;
 
+    }
+
+    //returns current paper, glass, metal, plastic per user
+    public String getRecycledPointsPerUser(String url, String uname) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+
+        // Append username to the URL
+        String finalUrl = url + "?username=" + uname;
+
+        Request request = new Request.Builder().url(finalUrl).build();
+        Response response = client.newCall(request).execute();
+        return response.body().string();
+    }
+
+
+    public String[] getAllUsernames(String url) throws IOException, JSONException {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(url).build();
+        Response response = client.newCall(request).execute();
+        String jsonResponse = response.body().string();
+
+        JSONArray jsonArray = new JSONArray(jsonResponse);
+        String[] usernames = new String[jsonArray.length()];
+        for (int i = 0; i < jsonArray.length(); i++) {
+            usernames[i] = jsonArray.getString(i);
+        }
+        return usernames;
     }
 
 }

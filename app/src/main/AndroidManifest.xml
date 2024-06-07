@@ -32,6 +32,10 @@
             android:name=".MainActivity"
             android:exported="true" />
         <activity android:name=".ProfileActivity" />
+        <activity android:name=".AdminActivity"
+            android:exported="true"/>
+        <activity android:name=".ApproveActivity"
+            android:exported="true"/>
         <activity
             android:name=".SplashScreen"
             android:exported="true">

@@ -18,7 +18,7 @@
         android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="0dp"
-        android:onClick="onClickBackArrow"
+        android:onClick="onClickBackToForm"
         android:src="@drawable/back_to_user" />
 
     <TextView
