@@ -46,11 +46,6 @@ CREATE TABLE `users` (
 -- Άδειασμα δεδομένων του πίνακα `users`
 --
 
-INSERT INTO `users` (`username`, `password`, `isAdmin`, `points`, `paper`, `glass`, `metal`, `plastic`, `current_paper`, `current_glass`, `current_metal`, `current_plastic`) VALUES
-('Afro', 'test', 0, 5, 428, 17, 98, 0, 0, 0, 0, 0),
-('Rico', 'rico', 0, 91, 0, 0, 0, 0, 0, 0, 0, 0),
-('admin', 'admin', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-
 --
 -- Ευρετήρια για άχρηστους πίνακες
 --
