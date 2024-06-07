@@ -154,7 +154,7 @@
         android:backgroundTint="@color/app_green"
         android:text="View Statistics"
         android:textSize="24sp"
-        android:onClick="onClickStats>
+        android:onClick="onClickStats">
     </Button>
 
 
