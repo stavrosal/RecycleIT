@@ -12,8 +12,8 @@
     mysqli_select_db($conn, $dbname);
 
 
-    $sql = "SELECT username, points FROM users ORDER BY points desc"; 
-    
+    $sql = "SELECT username, points FROM users"; 
+    // $sql = "SELECT username, points FROM users ORDER BY points desc LIMIT 3"; 
 
      $result = mysqli_query($conn, $sql);
 
@@ -21,7 +21,7 @@
 
      if ($result->num_rows > 0)  
     { 
-        // Output data of each row
+        // OUTPUT DATA OF EACH ROW 
         while($row = $result->fetch_assoc()) {
             $data[] = ["username" => $row["username"], "points" => $row["points"]];
         }
@@ -31,9 +31,9 @@
         echo "0 results"; 
     } 
 
-    // Return data as JSON
+    // Επιστροφή των δεδομένων ως JSON
     echo json_encode($data);
 
-    // Close connection
+    // Κλείσιμο της σύνδεσης
     mysqli_close($conn);
 ?>
