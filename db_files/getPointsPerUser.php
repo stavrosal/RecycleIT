@@ -21,9 +21,9 @@
         }
     }
 
-    // Return data as JSON
+    // Επιστροφή των δεδομένων ως JSON
     echo json_encode(["points" => $points]);
 
-    // Close connection
+    // Κλείσιμο της σύνδεσης
     mysqli_close($conn);
 ?>
