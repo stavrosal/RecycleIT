@@ -7,7 +7,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONException;
-import org.json.JSONObject;
+import static com.example.recycleproject.MainActivity.myIp;
 
 import java.io.IOException;
 
