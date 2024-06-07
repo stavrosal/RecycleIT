@@ -14,7 +14,7 @@ import java.io.IOException;
 public class BestStatisticsActivity extends AppCompatActivity {
 
     TextView user1, user2, user3, points1, points2, points3;
-    String url = "http://192.168.1.3/RecycleIT/getBestStatistics.php";
+    String url = "http://" + myIp + "/RecycleIT/getBestStatistics.php";
 
     String user_points[] = new String[3];
 
