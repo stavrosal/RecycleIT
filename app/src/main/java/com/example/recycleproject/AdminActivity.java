@@ -51,6 +51,13 @@ public class AdminActivity extends AppCompatActivity {
 
     }
 
+    public void onClickStats(View view)
+    {
+        Intent intent = new Intent(AdminActivity.this, BestStatisticsActivity.class);
+        startActivity(intent);
+    }
+
+
     public void onClickLogoutButton(View v) {
         Intent intent = new Intent(AdminActivity.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
