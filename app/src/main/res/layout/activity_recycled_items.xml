@@ -1,0 +1,196 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RecycledItemsActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/num_of_materials"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp"
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="70dp">
+
+        <!-- Paper -->
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="Check what you've recycled today!"
+            android:textAlignment="center"
+            android:textSize="26sp"
+            android:textStyle="italic|bold" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center">
+
+            <TextView
+                android:id="@+id/paperTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="70dp"
+                android:text="Paper:"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/paperNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/paperTextView"
+                android:text="0"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+
+        </RelativeLayout>
+
+        <!-- Glass -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center">
+
+            <TextView
+                android:id="@+id/glassTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="70dp"
+                android:text="Glass:"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/glassNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/glassTxt"
+                android:text="0"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+
+        </RelativeLayout>
+
+        <!-- Metal -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center">
+
+            <TextView
+                android:id="@+id/metalTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="70dp"
+                android:text="Metal:"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/metalNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/metalTxt"
+                android:text="0"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+
+        </RelativeLayout>
+
+        <!-- Plastic -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center">
+
+            <TextView
+                android:id="@+id/plasticTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="70dp"
+                android:text="Plastic:"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/plasticNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="70dp"
+                android:layout_toEndOf="@id/plasticTxt"
+                android:text="0"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+
+        </RelativeLayout>
+
+        <!--        <Button-->
+        <!--            android:id="@+id/buttonUser"-->
+        <!--            android:layout_width="135dp"-->
+        <!--            android:layout_height="56dp"-->
+        <!--            android:layout_alignParentLeft="true"-->
+        <!--            android:layout_alignParentBottom="true"-->
+        <!--            android:layout_gravity="center"-->
+        <!--            android:layout_marginStart="50dp"-->
+        <!--            android:layout_marginLeft="50dp"-->
+        <!--            android:layout_marginTop="10dp"-->
+        <!--            android:layout_marginEnd="50dp"-->
+        <!--            android:layout_marginBottom="10dp"-->
+        <!--            android:backgroundTint="#056709"-->
+        <!--            android:onClick="onClickProgress"-->
+        <!--            android:text="Progress"-->
+        <!--            android:textColor="@color/white"-->
+        <!--            android:textSize="19sp" />-->
+
+        <Button
+            android:id="@+id/buttonBack"
+            android:layout_width="135dp"
+            android:layout_height="56dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#056709"
+            android:onClick="onClickBackArrow"
+            android:textStyle="bold"
+            android:text="Back"
+            android:textSize="19sp" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>
