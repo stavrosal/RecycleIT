@@ -6,7 +6,7 @@ A simple Android-based application for tracking recycled materials.
 - A server with MariaDB and a database named "users".
 - Android 8.
 
-**IMPORTANT: This project is for education purposes only. User data is stored unencrypted (plaintext)!**
+**IMPORTANT: This project is for educational purposes only. User data is stored unencrypted (plaintext)!**
 
 # Deployment
 - Insert the .sql file (it is in the db_files folder) into the database.
